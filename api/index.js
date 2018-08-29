@@ -4,7 +4,6 @@
  * Exportamos todas las dependencias necesarias para establecer la conexión
  */
 
-
 const express = require('express'),
   app = express(),
   path = require('path'),
@@ -74,6 +73,10 @@ app.use('/api', jugadores);
 
 // Se guarda todo lo que se ha realizado
 module.exports = app;
+
+// const router = express.Router();
+// app.use(app.router);
+// jugadores.initialize(app);
 
 function _server(){
   console.log('Conexión con el back-end establecida en el puerto ' + port);
