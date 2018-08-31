@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 const jugador = require('./jugadores.api');
 
-router.route('/registrarjugador')
+router.route('/registrar_jugador')
     .post(function (req, res) {
-        jugador.registrar(req, res);
+        jugador.registrar_jugador(req, res);
     });
 
 router.route('/listar_jugadores')
@@ -23,4 +23,13 @@ router.route('/agregar_propiedad')
         jugador.agregar_propiedad(req, res);
     });
 
+router.route('/actualizar_jugador')
+    .post(function (req, res) {
+        jugador.actualizar(req, res);
+    });
+
+router.route('/borrar_jugador')
+    .post(function (req, res) {
+        jugador.borrar(req, res);
+    });
 module.exports = router;

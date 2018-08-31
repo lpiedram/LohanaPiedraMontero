@@ -9,9 +9,16 @@ const nombre = document.querySelector('#txtNombre');
 const alias = document.querySelector('#txtAlias');
 const imagen = document.querySelector('#txtImagen');
 
+const editNombre = document.querySelector('#txtEditNombre');
+const editAlias = document.querySelector('#txtEditAlias');
+const editDinero = document.querySelector('#txtEditDinero');
+const editImagen = document.querySelector('#txtEditImagen');
+
 const btnRegistrar = document.querySelector('#btnRegistrar');
+const btnActualizar = document.querySelector('#btnActualizar');
 
 btnRegistrar.addEventListener('click', obtenerDatos);
+btnActualizar.addEventListener('click', obtenerDatosEditar);
 
 function obtenerDatos() {
     let bError = false;
@@ -44,6 +51,40 @@ function obtenerDatos() {
     }
 }
 
+function obtenerDatosEditar() {
+
+    let bError = false;
+
+    let sNombre = editNombre.value;
+    let sAlias = editAlias.value;
+    let sDinero = editDinero.value;
+
+    //bError = validar();
+    if (bError == true) {
+        swal({
+            type: 'warning',
+            title: 'No se pudo registrar el usuario',
+            text: 'Por favor revise los campos en rojo',
+            confirmButtonText: 'Entendido'
+        });
+        console.log('No se pudo registrar el usuario');
+    } else {
+        console.log(imagenUrl);
+        actualizarJuagdor(idJugadorSeleccionado, sNombre, sAlias, sDinero, imagen.src);
+        swal({
+            type: 'success',
+            title: 'Usuario actualizado',
+            text: 'El usuario se actualizó adecuadamente',
+            confirmButtonText: 'Entendido'
+        });
+        listaJugadores = obtenerListaJugadores();
+        imprimirListaJugadores();
+        limpiarFormulario();
+        btnActualizar.hidden = true;
+        btnRegistrar.hidden = false;
+    }
+};
+
 function imprimirListaJugadores(pFiltro) {
 
     let tbody = document.querySelector('#tblJugador tbody');
@@ -56,9 +97,11 @@ function imprimirListaJugadores(pFiltro) {
         if (listaJugadores[i]['nombre'].toLowerCase().includes(pFiltro.toLowerCase())) {
             let fila = tbody.insertRow();
             
+            let cid = fila.insertCell();
             let cNombre = fila.insertCell();
             let cAlias = fila.insertCell();
             let cMonto = fila.insertCell();
+            let cConfiguracion = fila.insertCell();
             let cFoto = fila.insertCell();
 
             let imagen = document.createElement('img');
@@ -67,6 +110,7 @@ function imprimirListaJugadores(pFiltro) {
 
             cFoto.appendChild(imagen);
 
+            cid.innerHTML = listaJugadores[i]['_id'];
             cNombre.innerHTML = listaJugadores[i]['nombre'];
             cAlias.innerHTML = listaJugadores[i]['alias'];
             cMonto.innerHTML = listaJugadores[i]['dinero'];
@@ -120,4 +164,33 @@ function limpiarFormulario() {
     alias.value = '';
     idJugadorSeleccionado = '';
     imagen.src = '';
+
+    editNombre.value = '';
+    editAlias.value = '';
+    editDinero.value = '';
+    idJugadorSeleccionado = '';
+    editImagen.src = '';
 };
+
+function llenarDatosFormulario() {
+    btnRegistrar.hidden = true;
+    btnActualizar.hidden = false;
+
+    idJugadorSeleccionado = this.dataset._id;// se obtiene el id del usuario seleccionado
+
+    let usuario = obtenerJugadorPorId(idJugadorSeleccionado);
+
+    editNombre.value = usuario['nombre'];
+    editAlias.value = usuario['alias'];
+    editDinero.value = usuario['dinero'];
+
+    editImagen.src = usuario['foto'];
+};
+
+function borrarJugador() {
+    let id = this.dataset._id;
+    borrarJugadorPorId(id);
+    listaJugadores = obtenerListaJugadores();
+    imprimirListaJugadores();
+
+}
