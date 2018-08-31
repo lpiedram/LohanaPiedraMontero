@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const jugador = require('./jugadores.api');
 
-router.route('/registrar_jugador')
+router.route('/registrarjugador')
     .post(function (req, res) {
         jugador.registrar(req, res);
     });
@@ -22,3 +22,5 @@ router.route('/agregar_propiedad')
     .post(function (req, res) {
         jugador.agregar_propiedad(req, res);
     });
+
+module.exports = router;

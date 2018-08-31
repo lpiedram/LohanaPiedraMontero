@@ -8,6 +8,7 @@ module.exports.registrar = function (req, res) {
     let nuevoJugador = new jugadorModel({
         nombre: req.body.nombre,
         alias: req.body.alias,
+        dinero: req.body.dinero,
         foto: req.body.foto
     });
 };

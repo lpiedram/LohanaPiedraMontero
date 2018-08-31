@@ -3,7 +3,7 @@
 function registrarJugador(sNombre, sAlias, sdinero, imagenUrl) {
     let respuesta = '';
     let peticion = $.ajax({
-        url: 'http://localhost:4000/api/registrar_jugador',
+        url: 'http://localhost:4000/api/registrarjugador',
         type: 'post',
         contentType: 'application/x-www-form-urlencoded; charset=utf-8',
         dataType: 'json',
