@@ -65,11 +65,13 @@ app.use( function(req, res, next) {
  * Exportams todas las rutas dentro del index.js
  */
 const jugadores = require('./components/jugadores/jugadores.route');
+const propiedad = require('./components/propiedad/propiedad.route');
 
 /**
  * Le indicamos que le de acceso externo a las rutas inicializadas
  */
 app.use('/api', jugadores);
+app.use('/api', propiedad);
 
 // Se guarda todo lo que se ha realizado
 module.exports = app;

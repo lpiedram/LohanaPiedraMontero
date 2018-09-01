@@ -80,8 +80,6 @@ function obtenerDatosEditar() {
         listaJugadores = obtenerListaJugadores();
         imprimirListaJugadores();
         limpiarFormulario();
-        btnActualizar.hidden = true;
-        btnRegistrar.hidden = false;
     }
 };
 
@@ -101,8 +99,8 @@ function imprimirListaJugadores(pFiltro) {
             let cNombre = fila.insertCell();
             let cAlias = fila.insertCell();
             let cMonto = fila.insertCell();
-            let cConfiguracion = fila.insertCell();
             let cFoto = fila.insertCell();
+            let cConfiguracion = fila.insertCell();
 
             let imagen = document.createElement('img');
             imagen.src = listaJugadores[i]['foto'];
@@ -173,9 +171,6 @@ function limpiarFormulario() {
 };
 
 function llenarDatosFormulario() {
-    btnRegistrar.hidden = true;
-    btnActualizar.hidden = false;
-
     idJugadorSeleccionado = this.dataset._id;// se obtiene el id del usuario seleccionado
 
     let usuario = obtenerJugadorPorId(idJugadorSeleccionado);
@@ -183,7 +178,6 @@ function llenarDatosFormulario() {
     editNombre.value = usuario['nombre'];
     editAlias.value = usuario['alias'];
     editDinero.value = usuario['dinero'];
-
     editImagen.src = usuario['foto'];
 };
 
